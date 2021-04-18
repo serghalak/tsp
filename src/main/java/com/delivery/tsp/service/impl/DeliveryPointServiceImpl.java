@@ -20,7 +20,6 @@ import java.util.List;
 public class DeliveryPointServiceImpl implements DeliveryPointService {
 
     private static final int KILOMETER_TO_METER=1000;
-    private static final int HOUR_TO_SECOND=3600;
     private static final double KM_HOUR_TO_M_SEC=3.6;
     private static final int MITUTE_TO_SECOND=60;
 
@@ -63,6 +62,8 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
 
         int minTimeWait=Integer.MAX_VALUE;
         int minPathLong=Integer.MAX_VALUE;
+        //int leftTimeSec=(int)courierDto.getBeginWorkDay().until(courierDto.getEndWorkDay(),ChronoUnit.SECONDS);
+
         LocalTime minTimeEndWork=LocalTime.MAX;
 
         for (Result result: resultList ) {
@@ -72,6 +73,8 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
             int totalTime=0;
             int timeWait=0;
             int timeDrive=0;
+
+
             boolean isExit=false;
 
             List<PointToPoint> pointList = result.getPointList();
@@ -88,6 +91,9 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
 
                 totalTime += (pointToPoint.getMesure()*KILOMETER_TO_METER)/(speed/KM_HOUR_TO_M_SEC);
                 timeDrive +=(pointToPoint.getMesure()*KILOMETER_TO_METER)/(speed/KM_HOUR_TO_M_SEC);
+
+                //leftTimeSec -=totalTime;
+
                 //System.out.println("---->totalTime: " + totalTime);
                 LocalTime timeOnPoint = timeDeparture.plusSeconds(totalTime);
                 //spendTime[i]*60;
@@ -159,7 +165,8 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
 
 
 
-        return minPath
+        return  "\n\n" + "====================RESULT======================" +"\n"
+               + minPath
                 + "\n\n" + "-----------------------------------------------" +"\n"
                 +minWait
                 + "\n\n"+ "-----------------------------------------------"  +"\n"

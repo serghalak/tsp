@@ -32,19 +32,28 @@ public class TspApplication implements CommandLineRunner {
 			.getLogger(TspApplication.class);
 
 	public static void main(String[] args) {
-		log.info(">>>start main ....");
+		if(args.length>0)
+			log.info(">>>start main ...."+ args[0]);
 		SpringApplication.run(TspApplication.class, args);
 		log.info(">>>finish main ...");
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info(">>>command line runner ...");
+		String fileName=null;
+		if(args.length>0){
+			log.info(">>>command line runner ..."+ args[0]);
+			fileName=args[0];
+		}else{
+			fileName="/json/courier.json";
+		}
 
 		//read from json file
 		ObjectMapper mapper = new ObjectMapper();
 		//TypeReference<List<CourierDto>> typeReference = new TypeReference<List<CourierDto>>(){};
-		InputStream inputStream = TypeReference.class.getResourceAsStream("/json/courier.json");
+		//InputStream inputStream = TypeReference.class.getResourceAsStream("/json/courier.json");
+
+		InputStream inputStream = TypeReference.class.getResourceAsStream(fileName);
 		//List<CourierDto> courier=new ArrayList<>();
 		CourierJson courierJson=new CourierJson();
 		CourierDto courierDto=null;
