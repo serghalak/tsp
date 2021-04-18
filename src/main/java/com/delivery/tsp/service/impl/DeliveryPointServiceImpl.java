@@ -80,16 +80,10 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
             for (int i=0;i<pointList.size();i++ ) {
                 pointToPoint=pointList.get(i);
                 if(i==0){
-//                    resultString.append("[");
-//                    resultString.append(pointToPoint.getStartPoint());
-//                    resultString.append("]");
                     appendStartPoint(resultString,pointToPoint.getStartPoint());
                     timeDeparture=courierDto.getBeginWorkDay();
                 }
-//                resultString.append(" => ");
-//                resultString.append("[");
-//                resultString.append(pointToPoint.getEndPoint());
-//                resultString.append("]");
+
                 appendEndPoint(resultString,pointToPoint.getEndPoint());
 
                 totalTime += (pointToPoint.getMesure()*KILOMETER_TO_METER)/(speed/KM_HOUR_TO_M_SEC);
@@ -98,14 +92,6 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
                 LocalTime timeOnPoint = timeDeparture.plusSeconds(totalTime);
                 //spendTime[i]*60;
                 if(deliveryPointList.get(i).getDeliveryTo().isBefore(timeOnPoint)){
-
-//                    resultString.append(" we arrived to point: ");
-//                    resultString.append(" => [");
-//                    resultString.append(deliveryPointList.get(i).getId());
-//                    resultString.append("] ");
-//                    resultString.append(timeOnPoint);
-//                    resultString.append(" instead ");
-//                    resultString.append(deliveryPointList.get(i).getDeliveryTo());
 
                     appendLostDelivery(resultString
                             ,deliveryPointList.get(i).getId()
@@ -134,33 +120,17 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
 
             //return back
             secondReturnBack=secondReturnBack(result,speed);
-            totalTime += secondReturnBack; //(result.getReturnDistance()*KILOMETER_TO_METER)/(speed/KM_HOUR_TO_M_SEC);
-            timeDrive += secondReturnBack;//(result.getReturnDistance()*KILOMETER_TO_METER)/(speed/KM_HOUR_TO_M_SEC);
+            totalTime += secondReturnBack;
+            timeDrive += secondReturnBack;
             LocalTime timeOnOffice = timeDeparture.plusSeconds(totalTime);
 
             if(timeOnOffice.isAfter(courierDto.getEndWorkDay())){
-
-//                resultString.append(" we arrived ");
-//                resultString.append(timeOnOffice);
-//                resultString.append(" instead ");
-//                resultString.append(courierDto.getEndWorkDay());
 
                 appendLostOffice(resultString,timeOnOffice,courierDto.getEndWorkDay());
 
                 System.out.println(resultString.toString());
                 continue;
             }
-
-
-//            resultString.append(" | Distance: ");
-//            resultString.append(result.getTotalMesure());
-//            resultString.append("km. Time on the road: ");
-//            resultString.append(Distance.secondsToHours(totalTime));
-//            resultString.append(". Time waiting: ");
-//            resultString.append(Distance.secondsToHours(timeWait));
-//            resultString.append(". Work finished ");
-//            resultString.append(timeOnOffice);
-//            resultString.append(" Time drive " + Distance.secondsToHours(timeDrive));
 
             appendRestResult(resultString,result.getTotalMesure(),totalTime,timeWait,timeOnOffice,timeDrive);
 

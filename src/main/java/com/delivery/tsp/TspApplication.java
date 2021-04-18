@@ -3,10 +3,7 @@ package com.delivery.tsp;
 import com.delivery.tsp.controller.DeliveryPointController;
 import com.delivery.tsp.dto.CourierDto;
 import com.delivery.tsp.dto.CourierJson;
-import com.delivery.tsp.service.DeliveryPointService;
-import com.delivery.tsp.utils.HamiltonCycle;
-import com.delivery.tsp.utils.HamiltonianCycle;
-import com.delivery.tsp.utils.brain.Vertex;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -17,14 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Time;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.delivery.tsp.utils.brain.Vertex.*;
+
 
 @SpringBootApplication
 public class TspApplication implements CommandLineRunner {
@@ -73,17 +66,6 @@ public class TspApplication implements CommandLineRunner {
 		String rout = deliveryPointController.findRout(courierDto);
 		System.out.println( rout);
 
-
-//		CourierDto courierDto=new CourierDto();
-//		courierDto.setBeginWorkDay(LocalTime.of(14,0,0));
-//		courierDto.setEndWorkDay(LocalTime.of(23,0,0));
-//		courierDto.setSpendTime(new int[]{20, 30, 15, 25, 10});
-//		courierDto.setSpeed(60);
-//		courierDto.setLotitude(50.4085203);
-//		courierDto.setLongitude(30.5743270);
-
-
-
 	}
 
 	private static void validateCourierSpeedJson(CourierJson courierJson){
@@ -94,10 +76,6 @@ public class TspApplication implements CommandLineRunner {
 		}
 	}
 
-//	private static void validateCourierTimeJson(CourierJson courierJson){
-//		courierJson.
-//		courierJson.getBeginWorkDay()
-//	}
 
 	private static CourierDto convertCourierJsonToCourierDto(CourierJson courierJson){
 
