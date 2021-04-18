@@ -1,0 +1,8 @@
+{
+  "beginWorkDay":"8:00:00",
+  "endWorkDay": "23:00:00",
+  "spendTime": [20,30,15,25,10],
+  "speed": "60",
+  "lotitude": "50.4085203",
+  "longitude": "30.5743270"
+}
